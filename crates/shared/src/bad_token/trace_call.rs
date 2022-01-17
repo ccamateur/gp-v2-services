@@ -647,7 +647,13 @@ mod tests {
             settlement_contract: settlement.address(),
             finders: vec![Arc::new(univ3)],
         };
+
         let result = token_cache.detect(testlib::tokens::USDC).await;
+        dbg!(&result);
+        assert!(result.unwrap().is_good());
+
+        let only_v3_token = H160(hex!("f1b99e3e573a1a9c5e6b2ce818b617f0e664e86b"));
+        let result = token_cache.detect(only_v3_token).await;
         dbg!(&result);
         assert!(result.unwrap().is_good());
     }
